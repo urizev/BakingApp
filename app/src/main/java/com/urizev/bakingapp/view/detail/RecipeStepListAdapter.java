@@ -37,6 +37,7 @@ class RecipeStepListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     void update(Recipe recipe) {
         this.recipe = recipe;
+        this.notifyDataSetChanged();
     }
 
     @Override

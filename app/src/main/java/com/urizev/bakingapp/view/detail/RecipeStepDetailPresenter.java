@@ -95,4 +95,8 @@ class RecipeStepDetailPresenter extends Presenter<RecipeStepDetailViewState> {
         this.stepId = stepId;
         this.loadDetails();
     }
+
+    void setPlayerPosition(long currentPosition) {
+        publishViewState(currentViewState().withPlayerPosition(currentPosition));
+    }
 }
