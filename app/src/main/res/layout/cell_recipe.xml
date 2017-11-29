@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="@dimen/cell_recipe_padding">
 
@@ -19,6 +19,7 @@
             <ImageView
                 android:id="@+id/image"
                 android:background="@color/colorPrimary"
+                android:contentDescription="@string/recipe_image"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/cell_recipe_image_height" />
             <TextView

@@ -10,8 +10,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/content"
         android:visibility="visible"
-        app:spanCount="@integer/recipe_columns"
-        app:layoutManager="android.support.v7.widget.GridLayoutManager"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/cell_recipe"/>

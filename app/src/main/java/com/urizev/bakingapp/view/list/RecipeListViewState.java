@@ -1,4 +1,4 @@
-package com.urizev.bakingapp.view.recipelist;
+package com.urizev.bakingapp.view.list;
 
 import com.google.auto.value.AutoValue;
 import com.google.common.collect.ImmutableList;
@@ -21,7 +21,7 @@ public abstract class RecipeListViewState implements ViewState {
 
     public abstract Builder toBuilder();
 
-    public static Builder builder() {
+    static Builder builder() {
         return new AutoValue_RecipeListViewState.Builder().loading(false);
     }
 

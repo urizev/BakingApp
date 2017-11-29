@@ -7,14 +7,8 @@
     android:layout_height="match_parent"
     tools:context="com.urizev.bakingapp.view.list.RecipeListActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/content"
-        android:visibility="visible"
-        app:spanCount="@integer/recipe_columns"
-        app:layoutManager="android.support.v7.widget.GridLayoutManager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/cell_recipe"/>
+    <include android:id="@+id/content" layout="@layout/fragment_recipe_step_detail_content"/>
+
     <com.urizev.bakingapp.widget.ErrorView
         android:id="@+id/error"
         android:visibility="invisible"

@@ -5,7 +5,6 @@ import com.google.common.collect.ImmutableList;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.subjects.BehaviorSubject;
-import timber.log.Timber;
 
 /**
  * Creado por jcvallejo en 28/11/17.
@@ -21,13 +20,14 @@ public class RecipeRepository {
     }
 
     public Observable<ImmutableList<Recipe>> getRecipes() {
-        Timber.d("Getting recipes");
         ObservableSource<ImmutableList<Recipe>> apiObservable;
         apiObservable = recipeService.getRecipes()
-                .doOnNext(recipes -> Timber.d("Gotten recipes from network"))
                 .doOnNext(recipes::onNext);
-        return recipes.doOnNext(recipes -> Timber.d("Gotten recipes from cache"))
-                .switchIfEmpty(apiObservable);
+        Observable<ImmutableList<Recipe>> cacheObservable = recipes.hasValue()
+                ? Observable.just(recipes.getValue())
+                : Observable.empty();
+
+        return cacheObservable.switchIfEmpty(apiObservable);
     }
 
     public Observable<Recipe> getRecipe(final int id) {

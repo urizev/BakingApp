@@ -1,4 +1,4 @@
-package com.urizev.bakingapp.view.recipelist;
+package com.urizev.bakingapp.view.list;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

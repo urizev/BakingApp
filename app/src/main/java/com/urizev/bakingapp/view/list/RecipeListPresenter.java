@@ -1,7 +1,9 @@
-package com.urizev.bakingapp.view.recipelist;
+package com.urizev.bakingapp.view.list;
 
 import com.urizev.bakingapp.model.RecipeRepository;
 import com.urizev.bakingapp.view.common.Presenter;
+
+import io.reactivex.schedulers.Schedulers;
 
 
 class RecipeListPresenter extends Presenter<RecipeListViewState> {
@@ -10,9 +12,11 @@ class RecipeListPresenter extends Presenter<RecipeListViewState> {
 
         addDisposable(repository.getRecipes()
                 .map(recipes -> currentViewState().withRecipes(recipes))
-                .doOnNext(this::publishViewState)
-                .startWith(currentViewState().withLoading())
                 .onErrorReturn(error -> currentViewState().withError(error))
+                .startWith(currentViewState().withLoading())
+                .doOnNext(this::publishViewState)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
                 .subscribe());
     }
 

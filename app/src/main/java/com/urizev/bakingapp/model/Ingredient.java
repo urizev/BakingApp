@@ -10,11 +10,11 @@ import com.squareup.moshi.Moshi;
 
 @AutoValue
 public abstract class Ingredient {
-    public abstract int quantity();
+    public abstract float quantity();
     public abstract String measure();
     public abstract String ingredient();
 
-    public static Ingredient create(int quantity, String measure, String ingredient) {
+    public static Ingredient create(float quantity, String measure, String ingredient) {
         return new AutoValue_Ingredient(quantity, measure, ingredient);
     }
 

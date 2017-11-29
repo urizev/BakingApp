@@ -53,8 +53,8 @@ public abstract class PresenterFragment<VS extends ViewState, P extends Presente
         super.onViewCreated(view, savedInstanceState);
         bindView(view);
         disposable = presenter.observeViewState()
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.computation())
                 .subscribe(this::renderViewState);
     }
 

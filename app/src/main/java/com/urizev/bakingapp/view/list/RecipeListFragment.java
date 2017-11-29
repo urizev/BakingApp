@@ -1,4 +1,4 @@
-package com.urizev.bakingapp.view.recipelist;
+package com.urizev.bakingapp.view.list;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -15,7 +15,7 @@ public class RecipeListFragment extends PresenterFragment<RecipeListViewState,Re
     @BindView(R.id.content) RecyclerView contentView;
     @BindView(R.id.loading) LoadingView loadingView;
     @BindView(R.id.error) ErrorView errorView;
-    private RecipeAdapter adapter;
+    private RecipeListAdapter adapter;
 
     @Override
     protected int getLayoutRes() {
@@ -32,12 +32,14 @@ public class RecipeListFragment extends PresenterFragment<RecipeListViewState,Re
         contentView.setVisibility(View.INVISIBLE);
         loadingView.setVisibility(View.INVISIBLE);
         errorView.setVisibility(View.INVISIBLE);
+
+        Throwable error = viewState.error();
         if (viewState.loading()) {
             loadingView.setVisibility(View.VISIBLE);
         }
-        else if (viewState.error() != null) {
+        else if (error != null) {
             errorView.setVisibility(View.VISIBLE);
-            errorView.setMessage(viewState.error().getMessage());
+            errorView.setMessage(error.getMessage());
         }
         else {
             contentView.setVisibility(View.VISIBLE);
@@ -48,7 +50,7 @@ public class RecipeListFragment extends PresenterFragment<RecipeListViewState,Re
     @Override
     protected void bindView(View view) {
         ButterKnife.bind(this, view);
-        this.adapter = new RecipeAdapter();
+        this.adapter = new RecipeListAdapter();
         contentView.setAdapter(adapter);
     }
 }

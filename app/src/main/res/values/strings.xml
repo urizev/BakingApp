@@ -4,4 +4,8 @@
     <string name="title_recipe_detail">Recipe Detail</string>
     <string name="d_servings">%d servings</string>
     <string name="loading_">Loading…</string>
+    <string name="loading_error">Loading error</string>
+    <string name="recipe_image">Recipe image</string>
+    <string name="previous_step">Go to previous step</string>
+    <string name="next_step">Go to next step</string>
 </resources>

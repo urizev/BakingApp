@@ -5,9 +5,15 @@
     <dimen name="item_width">200dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="cell_recipe_image_height">128dp</dimen>
-    <dimen name="cell_recipe_padding">8dp</dimen>
+    <dimen name="cell_recipe_padding">4dp</dimen>
     <dimen name="card_corner_radius">2dp</dimen>
     <dimen name="card_title_padding_top">24dp</dimen>
     <dimen name="card_title_padding_vertical">16dp</dimen>
     <dimen name="card_title_padding_bottom">16dp</dimen>
+    <dimen name="view_error_message_horizontal_margin">32dp</dimen>
+    <dimen name="activity_recipe_detail_menu_max_width">240dp</dimen>
+    <dimen name="fragment_step_detail_navigation_bar_height">48dp</dimen>
+    <dimen name="fragment_step_detail_description_padding">16dp</dimen>
+    <dimen name="fragment_step_detail_video_height">192dp</dimen>
+    <dimen name="cell_ingrediente_margin_vertical">16dp</dimen>
 </resources>
