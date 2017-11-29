@@ -40,6 +40,7 @@ import javax.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Optional;
 import timber.log.Timber;
 
 public class RecipeStepDetailFragment extends PresenterFragment<RecipeStepDetailViewState,RecipeStepDetailPresenter> {
@@ -94,6 +95,8 @@ public class RecipeStepDetailFragment extends PresenterFragment<RecipeStepDetail
         }
         else if (step != null) {
             Timber.d("Updating video");
+            RecipeIdDelegate delegate = (RecipeIdDelegate) getActivity();
+            delegate.setTitle(step.shortDescription());
             contentView.setVisibility(View.VISIBLE);
             if (descriptionView != null) {
                 descriptionView.setText(step.description());
@@ -122,6 +125,7 @@ public class RecipeStepDetailFragment extends PresenterFragment<RecipeStepDetail
 
     private void initializePlayer(Uri mediaUri, final long playerPosition) {
         if (player == null) {
+            this.mediaUri = null;
             TrackSelector trackSelector = new DefaultTrackSelector();
             LoadControl loadControl = new DefaultLoadControl();
             RenderersFactory renderersFactory = new DefaultRenderersFactory(getContext());
@@ -224,7 +228,10 @@ public class RecipeStepDetailFragment extends PresenterFragment<RecipeStepDetail
     @Override
     public void onPause() {
         if (player != null) {
-            player.setPlayWhenReady(false);
+            getPresenter().setPlayerPosition(player.getCurrentPosition());
+            player.stop();
+            player.release();
+            player = null;
         }
         super.onPause();
     }
@@ -244,11 +251,13 @@ public class RecipeStepDetailFragment extends PresenterFragment<RecipeStepDetail
         ButterKnife.bind(this, view);
     }
 
+    @Optional
     @OnClick(R.id.previous)
     public void onPreviousClicked() {
         getPresenter().onPreviousClicked();
     }
 
+    @Optional
     @OnClick(R.id.next)
     public void onNextClicked() {
         getPresenter().onNextClicked();

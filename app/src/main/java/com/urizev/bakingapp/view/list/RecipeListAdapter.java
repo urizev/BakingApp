@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.common.collect.ImmutableList;
@@ -44,18 +45,22 @@ class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeVie
     }
 
     class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private final int[] colors;
+        @BindView(R.id.image) ImageView image;
         @BindView(R.id.title) TextView title;
         @BindView(R.id.description) TextView description;
         private int recipeId;
 
         RecipeViewHolder(View itemView) {
             super(itemView);
+            colors = itemView.getResources().getIntArray(R.array.recipeColors);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
         }
 
         void bind(Recipe recipe) {
             this.recipeId = recipe.id();
+            this.image.setBackgroundColor(colors[recipeId % colors.length]);
             this.title.setText(recipe.name());
             this.description.setText(itemView.getResources().getString(R.string.d_servings, recipe.servings()));
         }

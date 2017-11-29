@@ -3,4 +3,18 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="colorPink">#ff80ab</color>
+    <color name="colorYellow">#fff176</color>
+    <color name="colorGreen">#ccff90</color>
+    <color name="colorBrown">#ff8a80</color>
+    <color name="colorBlue">#8c9eff</color>
+
+    <array name="recipeColors">
+        <item>@color/colorPink</item>
+        <item>@color/colorGreen</item>
+        <item>@color/colorBlue</item>
+        <item>@color/colorYellow</item>
+        <item>@color/colorBrown</item>
+    </array>
 </resources>

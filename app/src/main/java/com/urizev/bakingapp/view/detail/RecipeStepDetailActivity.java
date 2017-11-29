@@ -1,7 +1,9 @@
 package com.urizev.bakingapp.view.detail;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import com.urizev.bakingapp.R;
 
@@ -9,14 +11,30 @@ public class RecipeStepDetailActivity extends AppCompatActivity implements Recip
     public static final String EXTRA_RECIPE_ID = "recipeId";
     public static final String EXTRA_STEP_ID = "stepId";
     private int stepId;
+    private ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
+        }
 
         stepId = this.getIntent().getIntExtra(EXTRA_STEP_ID, 0);
 
         setContentView(R.layout.activity_recipe_step_detail);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -27,6 +45,11 @@ public class RecipeStepDetailActivity extends AppCompatActivity implements Recip
     @Override
     public int getRecipeStepId() {
         return stepId;
+    }
+
+    @Override
+    public void setTitle(String title) {
+        actionBar.setTitle(title);
     }
 
     @Override

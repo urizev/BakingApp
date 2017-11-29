@@ -21,9 +21,20 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".view.detail.RecipeDetailActivity">
+        <activity
+            android:name=".view.detail.RecipeDetailActivity"
+            android:parentActivityName=".view.list.RecipeListActivity"
+            tools:targetApi="jelly_bean">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.list.RecipeListActivity" />
         </activity>
-        <activity android:name=".view.detail.RecipeStepDetailActivity">
+        <activity android:name=".view.detail.RecipeStepDetailActivity"
+                  android:parentActivityName=".view.detail.RecipeDetailActivity"
+                  tools:targetApi="jelly_bean">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.detail.RecipeDetailActivity" />
         </activity>
     </application>
 

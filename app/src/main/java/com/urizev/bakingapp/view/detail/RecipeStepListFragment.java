@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.urizev.bakingapp.R;
+import com.urizev.bakingapp.model.Recipe;
 import com.urizev.bakingapp.model.RecipeRepository;
 import com.urizev.bakingapp.view.common.PresenterFragment;
 import com.urizev.bakingapp.widget.ErrorView;
@@ -38,6 +39,7 @@ public class RecipeStepListFragment extends PresenterFragment<RecipeStepListView
         errorView.setVisibility(View.INVISIBLE);
 
         Throwable error = viewState.error();
+        Recipe recipe = viewState.recipe();
         if (viewState.loading()) {
             loadingView.setVisibility(View.VISIBLE);
         }
@@ -45,9 +47,14 @@ public class RecipeStepListFragment extends PresenterFragment<RecipeStepListView
             errorView.setVisibility(View.VISIBLE);
             errorView.setMessage(error.getMessage());
         }
-        else {
+        else if (recipe != null){
+            RecipeIdDelegate delegate = (RecipeIdDelegate) getActivity();
+            delegate.setTitle(recipe.name());
             contentView.setVisibility(View.VISIBLE);
-            adapter.update(viewState.recipe());
+            adapter.update(recipe);
+        }
+        else {
+            throw new IllegalStateException();
         }
     }
 

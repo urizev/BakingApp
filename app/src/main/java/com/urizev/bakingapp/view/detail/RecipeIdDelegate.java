@@ -8,5 +8,6 @@ public interface RecipeIdDelegate {
     int getRecipeId();
     int getRecipeStepId();
 
+    void setTitle(String title);
     void showStepDetails(int stepId);
 }
