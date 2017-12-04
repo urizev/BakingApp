@@ -1,5 +1,7 @@
 package com.urizev.bakingapp.view.detail;
 
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,10 +31,13 @@ class RecipeStepListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private static final int CELL_INGREDIENT_BOTTOM = 3;
 
     private Recipe recipe;
+
+    private final boolean highlightSelectedStep;
     private final WeakReference<RecipeStepListAdapterDelegate> delegate;
 
-    RecipeStepListAdapter(RecipeStepListAdapterDelegate delegate) {
+    RecipeStepListAdapter(RecipeStepListAdapterDelegate delegate, boolean highlightSelectedStep) {
         this.delegate = new WeakReference<>(delegate);
+        this.highlightSelectedStep = highlightSelectedStep;
     }
 
     void update(Recipe recipe) {
@@ -116,16 +121,26 @@ class RecipeStepListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     class StepViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.description) TextView description;
         private int stepId;
+        private final int selectionColor;
 
         StepViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
             view.setOnClickListener(this);
+            this.selectionColor = ContextCompat.getColor(itemView.getContext(), R.color.colorPrimaryLight);
         }
 
         void bind(Step step) {
             this.stepId = step.id();
             this.description.setText(step.shortDescription());
+
+            if (highlightSelectedStep) {
+                RecipeStepListAdapterDelegate d = delegate.get();
+                if (d != null) {
+                    int stepId = d.getSelectedStepId();
+                    itemView.setBackgroundColor(stepId == this.stepId ? selectionColor : Color.TRANSPARENT);
+                }
+            }
         }
 
         @Override
@@ -139,5 +154,6 @@ class RecipeStepListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     interface RecipeStepListAdapterDelegate {
         void onStepClicked(int stepId);
+        int getSelectedStepId();
     }
 }

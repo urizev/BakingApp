@@ -42,7 +42,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeIdD
     @Override
     public int getRecipeStepId() {
         RecipeStepListFragment fragment;
-        fragment = (RecipeStepListFragment) getSupportFragmentManager().findFragmentById(R.id.detail);
+        fragment = (RecipeStepListFragment) getSupportFragmentManager().findFragmentById(R.id.list);
         return fragment.getSelectedStepId();
     }
 
