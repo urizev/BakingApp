@@ -32,8 +32,8 @@ import com.urizev.bakingapp.R;
 import com.urizev.bakingapp.model.RecipeRepository;
 import com.urizev.bakingapp.model.Step;
 import com.urizev.bakingapp.view.common.PresenterFragment;
-import com.urizev.bakingapp.widget.ErrorView;
-import com.urizev.bakingapp.widget.LoadingView;
+import com.urizev.bakingapp.ui.ErrorView;
+import com.urizev.bakingapp.ui.LoadingView;
 
 import javax.annotation.Nullable;
 
@@ -41,7 +41,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
-import timber.log.Timber;
 
 public class RecipeStepDetailFragment extends PresenterFragment<RecipeStepDetailViewState,RecipeStepDetailPresenter> {
     @BindView(R.id.step_detail_include_content) View contentView;
@@ -94,7 +93,6 @@ public class RecipeStepDetailFragment extends PresenterFragment<RecipeStepDetail
             errorView.setMessage(error.getMessage());
         }
         else if (step != null) {
-            Timber.d("Updating video");
             RecipeIdDelegate delegate = (RecipeIdDelegate) getActivity();
             delegate.setTitle(step.shortDescription());
             contentView.setVisibility(View.VISIBLE);
@@ -190,6 +188,7 @@ public class RecipeStepDetailFragment extends PresenterFragment<RecipeStepDetail
                     getPresenter().setPlayerPosition(player.getCurrentPosition());
                 }
             });
+            setIdlingResourceIdle();
         }
 
         if (!mediaUri.equals(this.mediaUri)) {

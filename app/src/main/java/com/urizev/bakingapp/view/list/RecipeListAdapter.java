@@ -13,6 +13,7 @@ import com.google.common.collect.ImmutableList;
 import com.urizev.bakingapp.R;
 import com.urizev.bakingapp.model.Recipe;
 import com.urizev.bakingapp.view.detail.RecipeDetailActivity;
+import com.urizev.bakingapp.widget.RecipeWidgetService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,6 +72,10 @@ class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeVie
             Intent intent = new Intent(context, RecipeDetailActivity.class);
             intent.putExtra(RecipeDetailActivity.EXTRA_RECIPE_ID, recipeId);
             context.startActivity(intent);
+
+            intent = new Intent(context, RecipeWidgetService.class);
+            intent.putExtra(RecipeWidgetService.EXTRA_RECIPE_ID, recipeId);
+            context.startService(intent);
         }
     }
 }

@@ -1,12 +1,12 @@
-package com.urizev.bakingapp.widget;
+package com.urizev.bakingapp.ui;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.urizev.bakingapp.R;
@@ -18,23 +18,27 @@ import butterknife.ButterKnife;
  * Creado por jcvallejo en 29/11/17.
  */
 
-public class LoadingView extends LinearLayout {
-    @BindView(R.id.progress) ProgressBar progress;
+public class ErrorView extends LinearLayout {
+    @BindView(R.id.icon) ImageView icon;
     @BindView(R.id.message) TextView message;
 
-    public LoadingView(Context context) {
+    public ErrorView(Context context) {
         this(context, null, 0);
     }
 
-    public LoadingView(Context context, @Nullable AttributeSet attrs) {
+    public ErrorView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public LoadingView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public ErrorView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setOrientation(VERTICAL);
         setGravity(Gravity.CENTER);
-        View.inflate(context, R.layout.view_loading, this);
+        View.inflate(context, R.layout.view_error, this);
         ButterKnife.bind(this, this);
+    }
+
+    public void setMessage(String message) {
+        this.message.setText(message);
     }
 }

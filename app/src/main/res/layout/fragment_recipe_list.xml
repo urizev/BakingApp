@@ -15,14 +15,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/cell_recipe"/>
-    <com.urizev.bakingapp.widget.ErrorView
+    <com.urizev.bakingapp.ui.ErrorView
         android:id="@+id/recipe_list_error"
         android:visibility="invisible"
         app:spanCount="@integer/recipe_columns"
         app:layoutManager="android.support.v7.widget.GridLayoutManager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    <com.urizev.bakingapp.widget.LoadingView
+    <com.urizev.bakingapp.ui.LoadingView
         android:id="@+id/recipe_list_loading"
         app:spanCount="@integer/recipe_columns"
         app:layoutManager="android.support.v7.widget.GridLayoutManager"

@@ -48,8 +48,15 @@ public abstract class PresenterFragment<VS extends ViewState, P extends Presente
     }
 
     @VisibleForTesting
-    private CountingIdlingResource getIdlingResource() {
+    protected CountingIdlingResource getIdlingResource() {
         return ((IdlingResourceActivity) getActivity()).getIdlingResource();
+    }
+
+    protected void setIdlingResourceIdle() {
+        CountingIdlingResource ir = getIdlingResource();
+        if (ir != null) {
+            ir.decrement();
+        }
     }
 
     @Nullable
@@ -63,13 +70,11 @@ public abstract class PresenterFragment<VS extends ViewState, P extends Presente
         super.onViewCreated(view, savedInstanceState);
         bindView(view);
         disposable = presenter.observeViewState()
-                .delay((int) (Math.random() * 5000), TimeUnit.SECONDS)
+                .delay((int) (Math.random() * 5000), TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doAfterTerminate(() -> getIdlingResource().decrement())
                 .subscribeOn(Schedulers.computation())
                 .subscribe(this::renderViewState);
     }
-
 
     @Override
     public void onDestroyView() {

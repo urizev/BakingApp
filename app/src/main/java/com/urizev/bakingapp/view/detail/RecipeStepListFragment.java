@@ -10,8 +10,8 @@ import com.urizev.bakingapp.R;
 import com.urizev.bakingapp.model.Recipe;
 import com.urizev.bakingapp.model.RecipeRepository;
 import com.urizev.bakingapp.view.common.PresenterFragment;
-import com.urizev.bakingapp.widget.ErrorView;
-import com.urizev.bakingapp.widget.LoadingView;
+import com.urizev.bakingapp.ui.ErrorView;
+import com.urizev.bakingapp.ui.LoadingView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,6 +66,7 @@ public class RecipeStepListFragment extends PresenterFragment<RecipeStepListView
             delegate.setTitle(recipe.name());
             contentView.setVisibility(View.VISIBLE);
             adapter.update(recipe);
+            setIdlingResourceIdle();
         }
         else {
             throw new IllegalStateException();

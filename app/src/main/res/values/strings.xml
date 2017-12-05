@@ -8,4 +8,5 @@
     <string name="recipe_image">Recipe image</string>
     <string name="previous_step">Go to previous step</string>
     <string name="next_step">Go to next step</string>
+    <string name="no_recipe_selected">Please, select a recipe</string>
 </resources>

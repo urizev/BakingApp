@@ -9,14 +9,14 @@
 
     <include android:id="@+id/step_detail_include_content" layout="@layout/fragment_recipe_step_detail_content"/>
 
-    <com.urizev.bakingapp.widget.ErrorView
+    <com.urizev.bakingapp.ui.ErrorView
         android:id="@+id/step_detail_error"
         android:visibility="invisible"
         app:spanCount="@integer/recipe_columns"
         app:layoutManager="android.support.v7.widget.GridLayoutManager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    <com.urizev.bakingapp.widget.LoadingView
+    <com.urizev.bakingapp.ui.LoadingView
         android:id="@+id/step_detail_loading"
         app:spanCount="@integer/recipe_columns"
         app:layoutManager="android.support.v7.widget.GridLayoutManager"

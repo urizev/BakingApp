@@ -8,8 +8,8 @@ import android.view.View;
 
 import com.urizev.bakingapp.R;
 import com.urizev.bakingapp.view.common.PresenterFragment;
-import com.urizev.bakingapp.widget.ErrorView;
-import com.urizev.bakingapp.widget.LoadingView;
+import com.urizev.bakingapp.ui.ErrorView;
+import com.urizev.bakingapp.ui.LoadingView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,6 +66,7 @@ public class RecipeListFragment extends PresenterFragment<RecipeListViewState, R
         } else {
             contentView.setVisibility(View.VISIBLE);
             adapter.update(viewState.recipes());
+            setIdlingResourceIdle();
         }
     }
 
