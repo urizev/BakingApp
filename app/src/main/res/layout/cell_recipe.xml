@@ -17,13 +17,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
-                android:id="@+id/image"
+                android:id="@+id/recipe_image"
                 android:background="@color/colorPrimary"
                 android:contentDescription="@string/recipe_image"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/cell_recipe_image_height" />
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/recipe_title"
                 tools:text="Recipe title"
                 android:includeFontPadding="false"
                 android:paddingTop="@dimen/card_title_padding_top"
@@ -37,7 +37,7 @@
                 style="@style/TextAppearance.AppCompat.Headline"/>
 
             <TextView
-                android:id="@+id/description"
+                android:id="@+id/recipe_description"
                 tools:text="8 ingredients"
                 android:includeFontPadding="false"
                 android:paddingBottom="@dimen/card_title_padding_bottom"

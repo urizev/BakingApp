@@ -10,7 +10,7 @@
              android:paddingEnd="16dp"
              android:paddingStart="16dp">
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/step_description"
         tools:text="Prep the cookie crust."
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -10,6 +10,6 @@ tools:context="com.urizev.bakingapp.view.list.RecipeListActivity">
     android:name="com.urizev.bakingapp.view.list.RecipeListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/fragment"/>
+    android:id="@+id/recipe_list_fragment"/>
 
 </FrameLayout>

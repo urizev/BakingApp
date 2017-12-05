@@ -46,9 +46,9 @@ class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeVie
 
     class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final int[] colors;
-        @BindView(R.id.image) ImageView image;
-        @BindView(R.id.title) TextView title;
-        @BindView(R.id.description) TextView description;
+        @BindView(R.id.recipe_image) ImageView image;
+        @BindView(R.id.recipe_title) TextView title;
+        @BindView(R.id.recipe_description) TextView description;
         private int recipeId;
 
         RecipeViewHolder(View itemView) {

@@ -19,9 +19,9 @@ import butterknife.ButterKnife;
 public class RecipeStepListFragment extends PresenterFragment<RecipeStepListViewState,RecipeStepListPresenter> implements RecipeStepListAdapter.RecipeStepListAdapterDelegate {
     private static final String KEY_LIST_STATE = "listState";
 
-    @BindView(R.id.content) RecyclerView contentView;
-    @BindView(R.id.loading) LoadingView loadingView;
-    @BindView(R.id.error) ErrorView errorView;
+    @BindView(R.id.step_list_content) RecyclerView contentView;
+    @BindView(R.id.step_list_loading) LoadingView loadingView;
+    @BindView(R.id.step_list_error) ErrorView errorView;
     private RecipeStepListAdapter adapter;
 
     @Override

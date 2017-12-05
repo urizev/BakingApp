@@ -4,12 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.urizev.bakingapp.R;
+import com.urizev.bakingapp.view.common.IdlingResourceActivity;
 
-public class RecipeDetailActivity extends AppCompatActivity implements RecipeIdDelegate {
+public class RecipeDetailActivity extends IdlingResourceActivity implements RecipeIdDelegate {
     public static final String EXTRA_RECIPE_ID = "recipeId";
     private ActionBar actionBar;
 
@@ -42,7 +42,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeIdD
     @Override
     public int getRecipeStepId() {
         RecipeStepListFragment fragment;
-        fragment = (RecipeStepListFragment) getSupportFragmentManager().findFragmentById(R.id.list);
+        fragment = (RecipeStepListFragment) getSupportFragmentManager().findFragmentById(R.id.step_list_fragment);
         return fragment.getSelectedStepId();
     }
 
@@ -54,7 +54,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeIdD
     @Override
     public void showStepDetails(int stepId) {
         RecipeStepDetailFragment fragment;
-        fragment = (RecipeStepDetailFragment) getSupportFragmentManager().findFragmentById(R.id.detail);
+        fragment = (RecipeStepDetailFragment) getSupportFragmentManager().findFragmentById(R.id.step_detail_fragment);
         if (fragment != null) {
             fragment.showStepId(stepId);
         }

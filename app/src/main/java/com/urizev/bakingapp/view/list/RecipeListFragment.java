@@ -17,11 +17,11 @@ import butterknife.ButterKnife;
 public class RecipeListFragment extends PresenterFragment<RecipeListViewState, RecipeListPresenter> {
     private static final String KEY_LIST_STATE = "listState";
 
-    @BindView(R.id.content)
+    @BindView(R.id.recipe_list_content)
     RecyclerView contentView;
-    @BindView(R.id.loading)
+    @BindView(R.id.recipe_list_loading)
     LoadingView loadingView;
-    @BindView(R.id.error)
+    @BindView(R.id.recipe_list_error)
     ErrorView errorView;
     private RecipeListAdapter adapter;
 

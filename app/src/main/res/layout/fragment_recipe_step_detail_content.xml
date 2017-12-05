@@ -8,7 +8,7 @@
               android:layout_height="match_parent">
 
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
-        android:id="@+id/player"
+        android:id="@+id/step_detail_player"
         android:background="@android:color/black"
         app:resize_mode="fit"
         android:layout_weight="2"
@@ -16,7 +16,7 @@
         android:layout_height="0dp" />
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/step_detail_description"
         tools:text="9. Whisk together the egg whites and remaining 300 grams (1.5 cups) of sugar in the bowl of a stand mixer until combined. Set the bowl over the top of the boiling water and continue whisking the egg white mixture until it feels hot to the touch and the sugar is totally dissolved (if you have a reliable thermometer, it should read 150°F). "
         android:padding="@dimen/fragment_step_detail_description_padding"
         android:layout_weight="2"
@@ -24,19 +24,19 @@
         android:layout_height="0dp"/>
 
     <FrameLayout
-        android:id="@+id/navigation"
+        android:id="@+id/step_detail_navigation"
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="@dimen/fragment_step_detail_navigation_bar_height">
         <ImageButton
-            android:id="@+id/previous"
+            android:id="@+id/step_detail_previous"
             android:src="@drawable/ic_previous_white_24dp"
             android:layout_width="@dimen/fragment_step_detail_navigation_bar_height"
             android:layout_height="@dimen/fragment_step_detail_navigation_bar_height"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/previous_step"/>
         <ImageButton
-            android:id="@+id/next"
+            android:id="@+id/step_detail_next"
             android:src="@drawable/ic_next_white_24dp"
             android:layout_gravity="end"
             android:layout_width="@dimen/fragment_step_detail_navigation_bar_height"

@@ -8,7 +8,7 @@
     tools:context="com.urizev.bakingapp.view.list.RecipeListActivity">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/content"
+        android:id="@+id/recipe_list_content"
         android:visibility="visible"
         app:spanCount="@integer/recipe_columns"
         app:layoutManager="android.support.v7.widget.GridLayoutManager"
@@ -16,14 +16,14 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/cell_recipe"/>
     <com.urizev.bakingapp.widget.ErrorView
-        android:id="@+id/error"
+        android:id="@+id/recipe_list_error"
         android:visibility="invisible"
         app:spanCount="@integer/recipe_columns"
         app:layoutManager="android.support.v7.widget.GridLayoutManager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
     <com.urizev.bakingapp.widget.LoadingView
-        android:id="@+id/loading"
+        android:id="@+id/recipe_list_loading"
         app:spanCount="@integer/recipe_columns"
         app:layoutManager="android.support.v7.widget.GridLayoutManager"
         android:layout_width="match_parent"

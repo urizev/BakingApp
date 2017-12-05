@@ -4,12 +4,16 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.idling.CountingIdlingResource;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.urizev.bakingapp.App;
+
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -39,7 +43,13 @@ public abstract class PresenterFragment<VS extends ViewState, P extends Presente
         super.onAttach(context);
         if (presenter == null) {
             presenter = createPresenter();
+            getIdlingResource().increment();
         }
+    }
+
+    @VisibleForTesting
+    private CountingIdlingResource getIdlingResource() {
+        return ((IdlingResourceActivity) getActivity()).getIdlingResource();
     }
 
     @Nullable
@@ -53,7 +63,9 @@ public abstract class PresenterFragment<VS extends ViewState, P extends Presente
         super.onViewCreated(view, savedInstanceState);
         bindView(view);
         disposable = presenter.observeViewState()
+                .delay((int) (Math.random() * 5000), TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
+                .doAfterTerminate(() -> getIdlingResource().decrement())
                 .subscribeOn(Schedulers.computation())
                 .subscribe(this::renderViewState);
     }

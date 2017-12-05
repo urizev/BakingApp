@@ -44,14 +44,14 @@ import butterknife.Optional;
 import timber.log.Timber;
 
 public class RecipeStepDetailFragment extends PresenterFragment<RecipeStepDetailViewState,RecipeStepDetailPresenter> {
-    @BindView(R.id.content) View contentView;
-    @BindView(R.id.loading) LoadingView loadingView;
-    @BindView(R.id.error) ErrorView errorView;
-    @BindView(R.id.player) SimpleExoPlayerView playerView;
-    @Nullable @BindView(R.id.description) TextView descriptionView;
-    @Nullable @BindView(R.id.previous) View prevView;
-    @Nullable @BindView(R.id.next) View nextView;
-    @Nullable @BindView(R.id.navigation) View navigation;
+    @BindView(R.id.step_detail_include_content) View contentView;
+    @BindView(R.id.step_detail_loading) LoadingView loadingView;
+    @BindView(R.id.step_detail_error) ErrorView errorView;
+    @BindView(R.id.step_detail_player) SimpleExoPlayerView playerView;
+    @Nullable @BindView(R.id.step_detail_description) TextView descriptionView;
+    @Nullable @BindView(R.id.step_detail_previous) View prevView;
+    @Nullable @BindView(R.id.step_detail_next) View nextView;
+    @Nullable @BindView(R.id.step_detail_navigation) View navigation;
     private MediaSessionCompat mediaSession;
     private PlaybackStateCompat.Builder stateBuilder;
     private SimpleExoPlayer player;
@@ -252,13 +252,13 @@ public class RecipeStepDetailFragment extends PresenterFragment<RecipeStepDetail
     }
 
     @Optional
-    @OnClick(R.id.previous)
+    @OnClick(R.id.step_detail_previous)
     public void onPreviousClicked() {
         getPresenter().onPreviousClicked();
     }
 
     @Optional
-    @OnClick(R.id.next)
+    @OnClick(R.id.step_detail_next)
     public void onNextClicked() {
         getPresenter().onNextClicked();
     }

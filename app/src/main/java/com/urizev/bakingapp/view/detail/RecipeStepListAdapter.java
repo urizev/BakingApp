@@ -92,8 +92,8 @@ class RecipeStepListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     class IngredientViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.description) TextView description;
-        @BindView(R.id.card) View card;
+        @BindView(R.id.ingredient_description) TextView description;
+        @BindView(R.id.ingredient_card) View card;
         IngredientViewHolder(View view, int viewType) {
             super(view);
             ButterKnife.bind(this, view);
@@ -119,7 +119,7 @@ class RecipeStepListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     class StepViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @BindView(R.id.description) TextView description;
+        @BindView(R.id.step_description) TextView description;
         private int stepId;
         private final int selectionColor;
 

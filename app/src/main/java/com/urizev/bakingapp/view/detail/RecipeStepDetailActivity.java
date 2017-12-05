@@ -2,12 +2,12 @@ package com.urizev.bakingapp.view.detail;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.urizev.bakingapp.R;
+import com.urizev.bakingapp.view.common.IdlingResourceActivity;
 
-public class RecipeStepDetailActivity extends AppCompatActivity implements RecipeIdDelegate {
+public class RecipeStepDetailActivity extends IdlingResourceActivity implements RecipeIdDelegate {
     public static final String EXTRA_RECIPE_ID = "recipeId";
     public static final String EXTRA_STEP_ID = "stepId";
     private int stepId;

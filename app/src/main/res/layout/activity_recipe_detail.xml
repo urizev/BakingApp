@@ -7,7 +7,7 @@
     tools:context="com.urizev.bakingapp.view.detail.RecipeDetailActivity">
 
     <fragment
-        android:id="@+id/list"
+        android:id="@+id/step_list_fragment"
         android:name="com.urizev.bakingapp.view.detail.RecipeStepListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
