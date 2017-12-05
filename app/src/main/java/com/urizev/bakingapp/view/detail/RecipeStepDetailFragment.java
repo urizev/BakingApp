@@ -115,6 +115,7 @@ public class RecipeStepDetailFragment extends PresenterFragment<RecipeStepDetail
             else {
                 playerView.setVisibility(View.GONE);
             }
+            setIdlingResourceIdle();
         }
         else {
             throw new IllegalStateException();
@@ -188,7 +189,6 @@ public class RecipeStepDetailFragment extends PresenterFragment<RecipeStepDetail
                     getPresenter().setPlayerPosition(player.getCurrentPosition());
                 }
             });
-            setIdlingResourceIdle();
         }
 
         if (!mediaUri.equals(this.mediaUri)) {

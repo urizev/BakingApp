@@ -35,10 +35,4 @@ public class RecipeRepository {
                 .flatMap(Observable::fromIterable)
                 .filter(recipe -> id == recipe.id());
     }
-
-    public Observable<Step> getRecipeStep(final int recipeId, final int stepId) {
-        return this.getRecipe(recipeId)
-                .flatMap(recipe -> Observable.fromIterable(recipe.steps()))
-                .filter(step -> stepId == step.id());
-    }
 }

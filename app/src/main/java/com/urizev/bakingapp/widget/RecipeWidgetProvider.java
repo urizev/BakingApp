@@ -11,15 +11,10 @@ import android.widget.RemoteViews;
 import com.urizev.bakingapp.R;
 import com.urizev.bakingapp.view.detail.RecipeDetailActivity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class RecipeWidgetProvider extends AppWidgetProvider {
     static final String EXTRA_INGREDIENTS_LIST = "ingredientList";
 
-    private List<String> ingredients = new ArrayList<>();
-
-    void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
+    void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId, String[] ingredients) {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
 
         Intent appIntent = new Intent(context, RecipeDetailActivity.class);
@@ -31,22 +26,22 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
         remoteViews.setPendingIntentTemplate(R.id.widget_list, pendingIntent);
 
         Intent intent = new Intent(context, RecipeRemoteViewsService.class);
+        intent.putExtra(EXTRA_INGREDIENTS_LIST, ingredients);
         remoteViews.setRemoteAdapter(R.id.widget_list, intent);
 
         appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
     }
 
-    public void updateRecipeWidgets(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+    public void updateRecipeWidgets(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds, String[] ingredients) {
         for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId);
+            updateAppWidget(context, appWidgetManager, appWidgetId, ingredients);
         }
     }
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId);
-        }
+        Intent intent = new Intent(context, RecipeWidgetService.class);
+        context.startService(intent);
     }
 
     @Override
@@ -66,11 +61,11 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
 
         if (action != null &&
                 intent.hasExtra(EXTRA_INGREDIENTS_LIST) &&
-                action.equals("android.appwidget.action.APPWIDGET_UPDATE2")) {
+                action.equals("android.appwidget.action.APPWIDGET_UPDATE")) {
             String [] ingredients = intent.getStringArrayExtra(EXTRA_INGREDIENTS_LIST);
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_list);
             //Now update all widgets
-            updateRecipeWidgets(context, appWidgetManager, appWidgetIds);
+            updateRecipeWidgets(context, appWidgetManager, appWidgetIds, ingredients);
             super.onReceive(context, intent);
         }
     }

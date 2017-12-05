@@ -12,6 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="100 G Chocolate"
-        style="@style/Base.TextAppearance.AppCompat.Subhead"/>
+        style="@style/Base.TextAppearance.AppCompat.Body2"/>
 
 </FrameLayout>

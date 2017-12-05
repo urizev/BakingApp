@@ -2,6 +2,8 @@ package com.urizev.bakingapp.widget;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 
 import com.urizev.bakingapp.App;
@@ -17,6 +19,8 @@ import io.reactivex.Observable;
 
 public class RecipeWidgetService extends IntentService {
     public static final String EXTRA_RECIPE_ID = "recipeId";
+    private static final int DEFAULT_RECIPE_ID = 1;
+    private static final String PREF_WIDGET_RECIPE_ID = "widgetRecipeId";
 
     public RecipeWidgetService() {
         super("Recipe Widget Service");
@@ -28,9 +32,13 @@ public class RecipeWidgetService extends IntentService {
             return;
         }
 
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         int recipeId = intent.getIntExtra(EXTRA_RECIPE_ID, -1);
         if (recipeId < 0) {
-            return;
+            recipeId = sp.getInt(PREF_WIDGET_RECIPE_ID, DEFAULT_RECIPE_ID);
+        }
+        else {
+            sp.edit().putInt(PREF_WIDGET_RECIPE_ID, recipeId).apply();
         }
 
         List<String> items = ((App) getApplication())
@@ -44,9 +52,10 @@ public class RecipeWidgetService extends IntentService {
     }
 
     private void handleUpdateWidget(List<String> ingredients) {
-        Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE2");
-        intent.setAction("android.appwidget.action.APPWIDGET_UPDATE2");
-        intent.putExtra(RecipeWidgetProvider.EXTRA_INGREDIENTS_LIST, ingredients.toArray());
+        Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE");
+        intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
+        String [] ingredientArray = new String[ingredients.size()];
+        intent.putExtra(RecipeWidgetProvider.EXTRA_INGREDIENTS_LIST, ingredients.toArray(ingredientArray));
         sendBroadcast(intent);
     }
 }

@@ -42,7 +42,7 @@ public class RecipeRemoteViewsService extends RemoteViewsService {
 
         @Override
         public int getCount() {
-            if (ingredients.length == 0) {
+            if (ingredients == null) {
                 return 0;
             }
             return ingredients.length;
