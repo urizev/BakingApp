@@ -42,7 +42,7 @@ public class RecipeWidgetService extends IntentService {
         }
 
         List<String> items = ((App) getApplication())
-                .getRecipeRepository()
+                .getmRecipeRepository()
                 .getRecipe(recipeId)
                 .flatMap(recipe -> Observable.fromIterable(recipe.ingredients()))
                 .map(i -> String.format(Locale.getDefault(), "%.2f %s %s", i.quantity(), i.measure(), i.ingredient()))

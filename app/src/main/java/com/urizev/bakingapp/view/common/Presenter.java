@@ -12,37 +12,37 @@ import io.reactivex.subjects.BehaviorSubject;
  */
 
 public class Presenter<VS extends ViewState> {
-    private final BehaviorSubject<VS> viewStateSubject;
-    private final RecipeRepository repository;
-    private final CompositeDisposable disposables;
+    private final BehaviorSubject<VS> mViewStateSubject;
+    private final RecipeRepository mRepository;
+    private final CompositeDisposable mDisposables;
 
     public Presenter(RecipeRepository repository) {
-        this.repository = repository;
-        this.viewStateSubject = BehaviorSubject.create();
-        disposables = new CompositeDisposable();
+        this.mRepository = repository;
+        this.mViewStateSubject = BehaviorSubject.create();
+        mDisposables = new CompositeDisposable();
     }
 
     Observable<VS> observeViewState() {
-        return viewStateSubject;
+        return mViewStateSubject;
     }
 
     protected VS currentViewState() {
-        return viewStateSubject.getValue();
+        return mViewStateSubject.getValue();
     }
 
     protected void publishViewState(VS vs) {
-        viewStateSubject.onNext(vs);
+        mViewStateSubject.onNext(vs);
     }
 
     protected RecipeRepository getRepository() {
-        return repository;
+        return mRepository;
     }
 
     protected void addDisposable(Disposable disposable) {
-        disposables.add(disposable);
+        mDisposables.add(disposable);
     }
 
     protected void dispose() {
-        disposables.dispose();
+        mDisposables.dispose();
     }
 }

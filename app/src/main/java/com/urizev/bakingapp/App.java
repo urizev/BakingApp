@@ -1,7 +1,6 @@
 package com.urizev.bakingapp;
 
 import android.app.Application;
-import android.support.annotation.NonNull;
 
 import com.squareup.moshi.Moshi;
 import com.urizev.bakingapp.model.RecipeRepository;
@@ -23,7 +22,8 @@ import timber.log.Timber;
 
 public class App extends Application {
     private static final long MAX_CACHE_SIZE = 1024 * 1024;
-    private RecipeRepository recipeRepository;
+
+    private RecipeRepository mRecipeRepository;
 
     @Override
     public void onCreate() {
@@ -34,17 +34,12 @@ public class App extends Application {
         super.onCreate();
     }
 
-    public RecipeRepository getRecipeRepository() {
-        return recipeRepository;
+    public RecipeRepository getmRecipeRepository() {
+        return mRecipeRepository;
     }
 
     private void setup() {
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-            @Override
-            public void log(@NonNull String message) {
-                Timber.tag("OkHttp").d(message);
-            }
-        });
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor(message -> Timber.tag("OkHttp").d(message));
         RecipeService service = new Retrofit.Builder()
                 .baseUrl("https://d17h27t6h515a5.cloudfront.net")
                 .client(new OkHttpClient.Builder()
@@ -58,6 +53,6 @@ public class App extends Application {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
                 .create(RecipeService.class);
-        this.recipeRepository = new RecipeRepository(service);
+        this.mRecipeRepository = new RecipeRepository(service);
     }
 }

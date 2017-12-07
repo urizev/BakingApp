@@ -16,13 +16,13 @@ public class RecipeRemoteViewsService extends RemoteViewsService {
     }
 
     class ListRemoteViewsFactory implements RemoteViewsFactory {
-        private String [] ingredients;
+        private String [] mIngredients;
 
         Context mContext;
 
         ListRemoteViewsFactory(Context context, Intent intent) {
             mContext = context;
-            this.ingredients = intent.getStringArrayExtra(RecipeWidgetProvider.EXTRA_INGREDIENTS_LIST);
+            this.mIngredients = intent.getStringArrayExtra(RecipeWidgetProvider.EXTRA_INGREDIENTS_LIST);
         }
 
         @Override
@@ -42,17 +42,17 @@ public class RecipeRemoteViewsService extends RemoteViewsService {
 
         @Override
         public int getCount() {
-            if (ingredients == null) {
+            if (mIngredients == null) {
                 return 0;
             }
-            return ingredients.length;
+            return mIngredients.length;
         }
 
         @Override
         public RemoteViews getViewAt(int i) {
             RemoteViews view = new RemoteViews(mContext.getPackageName(), R.layout.cell_widget_list_item);
 
-            String ingredient = ingredients[i];
+            String ingredient = mIngredients[i];
 
             view.setTextViewText(R.id.cell_widget_item_text, ingredient);
 

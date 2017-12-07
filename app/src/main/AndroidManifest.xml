@@ -24,6 +24,7 @@
         <activity
             android:name=".view.detail.RecipeDetailActivity"
             android:parentActivityName=".view.list.RecipeListActivity"
+            android:launchMode="singleTop"
             tools:targetApi="jelly_bean">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

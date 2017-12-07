@@ -19,8 +19,8 @@ import butterknife.ButterKnife;
  */
 
 public class ErrorView extends LinearLayout {
-    @BindView(R.id.icon) ImageView icon;
-    @BindView(R.id.message) TextView message;
+    @BindView(R.id.icon) ImageView mIcon;
+    @BindView(R.id.message) TextView mMessage;
 
     public ErrorView(Context context) {
         this(context, null, 0);
@@ -39,6 +39,6 @@ public class ErrorView extends LinearLayout {
     }
 
     public void setMessage(String message) {
-        this.message.setText(message);
+        this.mMessage.setText(message);
     }
 }

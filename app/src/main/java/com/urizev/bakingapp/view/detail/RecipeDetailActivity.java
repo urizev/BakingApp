@@ -11,16 +11,17 @@ import com.urizev.bakingapp.view.common.IdlingResourceActivity;
 
 public class RecipeDetailActivity extends IdlingResourceActivity implements RecipeIdDelegate {
     public static final String EXTRA_RECIPE_ID = "recipeId";
-    private ActionBar actionBar;
+
+    private ActionBar mActionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
-        actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowHomeEnabled(true);
+        mActionBar = getSupportActionBar();
+        if (mActionBar != null) {
+            mActionBar.setDisplayHomeAsUpEnabled(true);
+            mActionBar.setDisplayShowHomeEnabled(true);
         }
     }
 
@@ -48,7 +49,7 @@ public class RecipeDetailActivity extends IdlingResourceActivity implements Reci
 
     @Override
     public void setTitle(String title) {
-        actionBar.setTitle(title);
+        mActionBar.setTitle(title);
     }
 
     @Override

@@ -2,7 +2,9 @@ package com.urizev.bakingapp.view.list;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.common.collect.ImmutableList;
+import com.squareup.picasso.Picasso;
 import com.urizev.bakingapp.R;
 import com.urizev.bakingapp.model.Recipe;
 import com.urizev.bakingapp.view.detail.RecipeDetailActivity;
@@ -61,9 +64,19 @@ class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeVie
 
         void bind(Recipe recipe) {
             this.recipeId = recipe.id();
-            this.image.setBackgroundColor(colors[recipeId % colors.length]);
             this.title.setText(recipe.name());
             this.description.setText(itemView.getResources().getString(R.string.d_servings, recipe.servings()));
+            int color = colors[recipeId % colors.length];
+            ColorDrawable placeHolder = new ColorDrawable(color);
+            if (TextUtils.isEmpty(recipe.image())) {
+                image.setImageDrawable(placeHolder);
+            }
+            else {
+                Picasso.with(itemView.getContext())
+                        .load(recipe.image())
+                        .placeholder(placeHolder)
+                        .into(image);
+            }
         }
 
         @Override

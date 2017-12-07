@@ -21,8 +21,8 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public abstract class PresenterFragment<VS extends ViewState, P extends Presenter<VS>> extends Fragment {
-    private P presenter;
-    private Disposable disposable;
+    private P mPresenter;
+    private Disposable mDisposable;
 
     protected abstract @LayoutRes int getLayoutRes();
     protected abstract P createPresenter();
@@ -38,15 +38,15 @@ public abstract class PresenterFragment<VS extends ViewState, P extends Presente
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (presenter == null) {
-            presenter = createPresenter();
+        if (mPresenter == null) {
+            mPresenter = createPresenter();
             getIdlingResource().increment();
         }
     }
 
     @VisibleForTesting
     protected IdlingResourceActivity.SemaphoreIdlingResource getIdlingResource() {
-        return ((IdlingResourceActivity) getActivity()).getIdlingResource();
+        return ((IdlingResourceActivity) getActivity()).getmIdlingResource();
     }
 
     protected void setIdlingResourceIdle() {
@@ -66,7 +66,7 @@ public abstract class PresenterFragment<VS extends ViewState, P extends Presente
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         bindView(view);
-        disposable = presenter.observeViewState()
+        mDisposable = mPresenter.observeViewState()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.computation())
                 .subscribe(this::renderViewState);
@@ -74,12 +74,12 @@ public abstract class PresenterFragment<VS extends ViewState, P extends Presente
 
     @Override
     public void onDestroyView() {
-        disposable.dispose();
+        mDisposable.dispose();
         super.onDestroyView();
     }
 
-    protected P getPresenter() {
-        return presenter;
+    protected P getmPresenter() {
+        return mPresenter;
     }
 
     public App getApp() {

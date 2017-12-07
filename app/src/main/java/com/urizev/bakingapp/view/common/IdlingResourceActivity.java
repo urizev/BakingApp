@@ -10,30 +10,30 @@ import android.support.v7.app.AppCompatActivity;
 
 public abstract class IdlingResourceActivity extends AppCompatActivity {
     @Nullable
-    private SemaphoreIdlingResource idlingResource;
+    private SemaphoreIdlingResource mIdlingResource;
 
     @VisibleForTesting
     @NonNull
-    public SemaphoreIdlingResource getIdlingResource() {
-        if (idlingResource == null) {
-            idlingResource = new SemaphoreIdlingResource();
+    public SemaphoreIdlingResource getmIdlingResource() {
+        if (mIdlingResource == null) {
+            mIdlingResource = new SemaphoreIdlingResource();
         }
-        return idlingResource;
+        return mIdlingResource;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
-        getIdlingResource();
+        getmIdlingResource();
     }
 
     class SemaphoreIdlingResource implements IdlingResource {
-        @Nullable private volatile IdlingResource.ResourceCallback callback;
+        @Nullable private volatile IdlingResource.ResourceCallback mCallback;
 
-        private int counter;
+        private int mCounter;
 
         SemaphoreIdlingResource() {
-            this.counter = 0;
+            this.mCounter = 0;
         }
 
         @Override
@@ -43,24 +43,24 @@ public abstract class IdlingResourceActivity extends AppCompatActivity {
 
         @Override
         public synchronized boolean isIdleNow() {
-            return counter == 0;
+            return mCounter == 0;
         }
 
         synchronized void increment() {
-            ++this.counter;
+            ++this.mCounter;
         }
 
         synchronized void decrement() {
-            if (this.counter <= 0) {
-                counter = 0;
+            if (this.mCounter <= 0) {
+                mCounter = 0;
                 return;
             }
 
-            --this.counter;
+            --this.mCounter;
 
-            if (this.counter <= 0) {
-                counter = 0;
-                ResourceCallback callback = this.callback;
+            if (this.mCounter <= 0) {
+                mCounter = 0;
+                ResourceCallback callback = this.mCallback;
                 if (callback != null) {
                     callback.onTransitionToIdle();
                 }
@@ -69,7 +69,7 @@ public abstract class IdlingResourceActivity extends AppCompatActivity {
 
         @Override
         public void registerIdleTransitionCallback(ResourceCallback callback) {
-            this.callback = callback;
+            this.mCallback = callback;
         }
     }
 }

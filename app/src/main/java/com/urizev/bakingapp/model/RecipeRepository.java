@@ -11,27 +11,27 @@ import io.reactivex.subjects.BehaviorSubject;
  */
 
 public class RecipeRepository {
-    private BehaviorSubject<ImmutableList<Recipe>> recipes;
-    private RecipeService recipeService;
+    private BehaviorSubject<ImmutableList<Recipe>> mRecipes;
+    private RecipeService mRecipeService;
 
     public RecipeRepository(RecipeService recipeService) {
-        this.recipeService = recipeService;
-        this.recipes = BehaviorSubject.create();
+        this.mRecipeService = recipeService;
+        this.mRecipes = BehaviorSubject.create();
     }
 
-    public Observable<ImmutableList<Recipe>> getRecipes() {
+    public Observable<ImmutableList<Recipe>> getmRecipes() {
         ObservableSource<ImmutableList<Recipe>> apiObservable;
-        apiObservable = recipeService.getRecipes()
-                .doOnNext(recipes::onNext);
-        Observable<ImmutableList<Recipe>> cacheObservable = recipes.hasValue()
-                ? Observable.just(recipes.getValue())
+        apiObservable = mRecipeService.getRecipes()
+                .doOnNext(mRecipes::onNext);
+        Observable<ImmutableList<Recipe>> cacheObservable = mRecipes.hasValue()
+                ? Observable.just(mRecipes.getValue())
                 : Observable.empty();
 
         return cacheObservable.switchIfEmpty(apiObservable);
     }
 
     public Observable<Recipe> getRecipe(final int id) {
-        return this.getRecipes()
+        return this.getmRecipes()
                 .flatMap(Observable::fromIterable)
                 .filter(recipe -> id == recipe.id());
     }

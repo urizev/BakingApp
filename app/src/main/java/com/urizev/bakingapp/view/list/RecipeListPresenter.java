@@ -10,7 +10,7 @@ class RecipeListPresenter extends Presenter<RecipeListViewState> {
     RecipeListPresenter(RecipeRepository repository) {
         super(repository);
 
-        addDisposable(repository.getRecipes()
+        addDisposable(repository.getmRecipes()
                 .map(recipes -> currentViewState().withRecipes(recipes))
                 .onErrorReturn(error -> currentViewState().withError(error))
                 .startWith(currentViewState().withLoading())

@@ -30,18 +30,18 @@ class RecipeStepListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private static final int CELL_INGREDIENT_TOP = 2;
     private static final int CELL_INGREDIENT_BOTTOM = 3;
 
-    private Recipe recipe;
+    private Recipe mRecipe;
 
-    private final boolean highlightSelectedStep;
-    private final WeakReference<RecipeStepListAdapterDelegate> delegate;
+    private final boolean mHighlightSelectedStep;
+    private final WeakReference<RecipeStepListAdapterDelegate> mDelegate;
 
     RecipeStepListAdapter(RecipeStepListAdapterDelegate delegate, boolean highlightSelectedStep) {
-        this.delegate = new WeakReference<>(delegate);
-        this.highlightSelectedStep = highlightSelectedStep;
+        this.mDelegate = new WeakReference<>(delegate);
+        this.mHighlightSelectedStep = highlightSelectedStep;
     }
 
     void update(Recipe recipe) {
-        this.recipe = recipe;
+        this.mRecipe = recipe;
         this.notifyDataSetChanged();
     }
 
@@ -50,10 +50,10 @@ class RecipeStepListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         if (position == 0) {
             return CELL_INGREDIENT_TOP;
         }
-        else if (position < recipe.ingredients().size() - 1) {
+        else if (position < mRecipe.ingredients().size() - 1) {
             return CELL_INGREDIENT;
         }
-        else if (position == recipe.ingredients().size() - 1) {
+        else if (position == mRecipe.ingredients().size() - 1) {
             return CELL_INGREDIENT_BOTTOM;
         }
         else {
@@ -77,18 +77,18 @@ class RecipeStepListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (position < recipe.ingredients().size()) {
-            ((IngredientViewHolder) holder).bind(recipe.ingredients().get(position));
+        if (position < mRecipe.ingredients().size()) {
+            ((IngredientViewHolder) holder).bind(mRecipe.ingredients().get(position));
             return;
         }
 
-        position -= recipe.ingredients().size();
-        ((StepViewHolder) holder).bind(recipe.steps().get(position));
+        position -= mRecipe.ingredients().size();
+        ((StepViewHolder) holder).bind(mRecipe.steps().get(position));
     }
 
     @Override
     public int getItemCount() {
-        return recipe != null ? recipe.ingredients().size() + recipe.steps().size() : 0;
+        return mRecipe != null ? mRecipe.ingredients().size() + mRecipe.steps().size() : 0;
     }
 
     class IngredientViewHolder extends RecyclerView.ViewHolder {
@@ -134,8 +134,8 @@ class RecipeStepListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             this.stepId = step.id();
             this.description.setText(step.shortDescription());
 
-            if (highlightSelectedStep) {
-                RecipeStepListAdapterDelegate d = delegate.get();
+            if (mHighlightSelectedStep) {
+                RecipeStepListAdapterDelegate d = mDelegate.get();
                 if (d != null) {
                     int stepId = d.getSelectedStepId();
                     itemView.setBackgroundColor(stepId == this.stepId ? selectionColor : Color.TRANSPARENT);
@@ -145,7 +145,7 @@ class RecipeStepListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         @Override
         public void onClick(View view) {
-            RecipeStepListAdapterDelegate d = delegate.get();
+            RecipeStepListAdapterDelegate d = mDelegate.get();
             if (d != null) {
                 d.onStepClicked(stepId);
             }

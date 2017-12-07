@@ -52,7 +52,7 @@ public class NoVideoStepDetailActivityTest {
 
     @Before
     public void registerIdlingResource() {
-        idlingResource = testRule.getActivity().getIdlingResource();
+        idlingResource = testRule.getActivity().getmIdlingResource();
         IdlingRegistry.getInstance().register(idlingResource);
     }
 

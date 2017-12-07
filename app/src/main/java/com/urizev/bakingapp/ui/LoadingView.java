@@ -19,8 +19,8 @@ import butterknife.ButterKnife;
  */
 
 public class LoadingView extends LinearLayout {
-    @BindView(R.id.progress) ProgressBar progress;
-    @BindView(R.id.message) TextView message;
+    @BindView(R.id.progress) ProgressBar mProgress;
+    @BindView(R.id.message) TextView mMessage;
 
     public LoadingView(Context context) {
         this(context, null, 0);

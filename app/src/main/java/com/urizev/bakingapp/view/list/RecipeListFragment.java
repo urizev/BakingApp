@@ -15,15 +15,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class RecipeListFragment extends PresenterFragment<RecipeListViewState, RecipeListPresenter> {
-    private static final String KEY_LIST_STATE = "listState";
+    private static final String KEY_LIST_STATE = "mListState";
 
-    @BindView(R.id.recipe_list_content)
-    RecyclerView contentView;
-    @BindView(R.id.recipe_list_loading)
-    LoadingView loadingView;
-    @BindView(R.id.recipe_list_error)
-    ErrorView errorView;
-    private RecipeListAdapter adapter;
+    @BindView(R.id.recipe_list_content) RecyclerView mContentView;
+    @BindView(R.id.recipe_list_loading) LoadingView mLoadingView;
+    @BindView(R.id.recipe_list_error) ErrorView mErrorView;
+    private RecipeListAdapter mAdapter;
+    private Parcelable mListState;
+    private boolean mListStateShouldBeRestored;
 
     @Override
     protected int getLayoutRes() {
@@ -32,40 +31,44 @@ public class RecipeListFragment extends PresenterFragment<RecipeListViewState, R
 
     @Override
     protected RecipeListPresenter createPresenter() {
-        return new RecipeListPresenter(this.getApp().getRecipeRepository());
+        return new RecipeListPresenter(this.getApp().getmRecipeRepository());
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (savedInstanceState != null && savedInstanceState.containsKey(KEY_LIST_STATE)) {
-            Parcelable listState = savedInstanceState.getParcelable(KEY_LIST_STATE);
-            contentView.getLayoutManager().onRestoreInstanceState(listState);
+            this.mListState = savedInstanceState.getParcelable(KEY_LIST_STATE);
+            this.mListStateShouldBeRestored = true;
         }
     }
 
     @Override
      public void onSaveInstanceState(Bundle outState) {
-        Parcelable listState = contentView.getLayoutManager().onSaveInstanceState();
+        Parcelable listState = mContentView.getLayoutManager().onSaveInstanceState();
         outState.putParcelable(KEY_LIST_STATE, listState);
         super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void renderViewState(RecipeListViewState viewState) {
-        contentView.setVisibility(View.INVISIBLE);
-        loadingView.setVisibility(View.INVISIBLE);
-        errorView.setVisibility(View.INVISIBLE);
+        mContentView.setVisibility(View.INVISIBLE);
+        mLoadingView.setVisibility(View.INVISIBLE);
+        mErrorView.setVisibility(View.INVISIBLE);
 
         Throwable error = viewState.error();
         if (viewState.loading()) {
-            loadingView.setVisibility(View.VISIBLE);
+            mLoadingView.setVisibility(View.VISIBLE);
         } else if (error != null) {
-            errorView.setVisibility(View.VISIBLE);
-            errorView.setMessage(error.getMessage());
+            mErrorView.setVisibility(View.VISIBLE);
+            mErrorView.setMessage(error.getMessage());
         } else {
-            contentView.setVisibility(View.VISIBLE);
-            adapter.update(viewState.recipes());
+            mContentView.setVisibility(View.VISIBLE);
+            mAdapter.update(viewState.recipes());
+            if (mListStateShouldBeRestored) {
+                mListStateShouldBeRestored = false;
+                mContentView.getLayoutManager().onRestoreInstanceState(mListState);
+            }
             setIdlingResourceIdle();
         }
     }
@@ -73,7 +76,7 @@ public class RecipeListFragment extends PresenterFragment<RecipeListViewState, R
     @Override
     protected void bindView(View view) {
         ButterKnife.bind(this, view);
-        this.adapter = new RecipeListAdapter();
-        contentView.setAdapter(adapter);
+        this.mAdapter = new RecipeListAdapter();
+        mContentView.setAdapter(mAdapter);
     }
 }

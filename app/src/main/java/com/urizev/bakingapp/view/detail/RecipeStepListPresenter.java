@@ -10,11 +10,9 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 class RecipeStepListPresenter extends Presenter<RecipeStepListViewState> {
-    private final int recipeId;
 
     RecipeStepListPresenter(int recipeId, RecipeRepository repository) {
         super(repository);
-        this.recipeId = recipeId;
 
         addDisposable(repository.getRecipe(recipeId)
                 .map(recipe -> currentViewState().withRecipe(recipe))

@@ -14,29 +14,29 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 class RecipeStepDetailPresenter extends Presenter<RecipeStepDetailViewState> {
-    private final int recipeId;
-    private int stepId;
-    private Disposable disposable;
-    private Recipe recipe;
+    private final int mRecipeId;
+    private int mStepId;
+    private Disposable mDisposable;
+    private Recipe mRecipe;
 
     RecipeStepDetailPresenter(int recipeId, int stepId, RecipeRepository repository) {
         super(repository);
-        this.recipeId = recipeId;
-        this.stepId = stepId;
+        this.mRecipeId = recipeId;
+        this.mStepId = stepId;
 
         loadDetails();
     }
 
     private void loadDetails() {
-        if (this.disposable != null) {
-            this.disposable.dispose();
-            this.disposable = null;
+        if (this.mDisposable != null) {
+            this.mDisposable.dispose();
+            this.mDisposable = null;
         }
 
-        this.disposable = getRepository().getRecipe(recipeId)
-                .doOnNext(recipe -> this.recipe = recipe)
+        this.mDisposable = getRepository().getRecipe(mRecipeId)
+                .doOnNext(recipe -> this.mRecipe = recipe)
                 .flatMap(recipe -> Observable.fromIterable(recipe.steps()))
-                .filter(step -> stepId == step.id())
+                .filter(step -> mStepId == step.id())
                 .map(step -> currentViewState().withStep(step))
                 .onErrorReturn(error -> currentViewState().withError(error))
                 .startWith(currentViewState().withLoading())
@@ -64,7 +64,7 @@ class RecipeStepDetailPresenter extends Presenter<RecipeStepDetailViewState> {
     }
 
     private void onChangeStep(int inc) {
-        if (recipe == null) {
+        if (mRecipe == null) {
             return;
         }
 
@@ -77,22 +77,22 @@ class RecipeStepDetailPresenter extends Presenter<RecipeStepDetailViewState> {
         if (stepId < 0) {
             return;
         }
-        if (stepId >= recipe.steps().size()) {
+        if (stepId >= mRecipe.steps().size()) {
             return;
         }
 
-        this.stepId = stepId;
+        this.mStepId = stepId;
         this.loadDetails();
     }
 
     @Override
     protected void dispose() {
-        disposable.dispose();
+        mDisposable.dispose();
         super.dispose();
     }
 
     void showStepId(int stepId) {
-        this.stepId = stepId;
+        this.mStepId = stepId;
         this.loadDetails();
     }
 
