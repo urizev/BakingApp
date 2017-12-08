@@ -19,14 +19,6 @@ public abstract class Step {
             return videoURL();
         }
 
-        if (TextUtils.isEmpty(thumbnailURL())) {
-            return null;
-        }
-
-        if (thumbnailURL().endsWith(".mp4")) {
-            return thumbnailURL();
-        }
-
         return null;
     }
 
@@ -36,7 +28,7 @@ public abstract class Step {
         }
 
         if (!thumbnailURL().endsWith(".mp4")) {
-            return thumbnailURL();
+            return null;
         }
 
         return null;

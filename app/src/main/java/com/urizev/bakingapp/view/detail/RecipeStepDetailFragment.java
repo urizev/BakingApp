@@ -49,8 +49,7 @@ public class RecipeStepDetailFragment extends PresenterFragment<RecipeStepDetail
     @BindView(R.id.step_detail_loading) LoadingView mLoadingView;
     @BindView(R.id.step_detail_error) ErrorView mErrorView;
     @BindView(R.id.step_detail_player) SimpleExoPlayerView mPlayerView;
-    @BindView(R.id.step_detail_image)
-    ImageView mImageView;
+    @Nullable @BindView(R.id.step_detail_image) ImageView mImageView;
     @Nullable @BindView(R.id.step_detail_description) TextView mDescriptionView;
     @Nullable @BindView(R.id.step_detail_previous) View mPrevView;
     @Nullable @BindView(R.id.step_detail_next) View mNextView;
@@ -114,14 +113,16 @@ public class RecipeStepDetailFragment extends PresenterFragment<RecipeStepDetail
                 }
             }
 
-            mImageView.setVisibility(View.GONE);
-            if (!TextUtils.isEmpty(step.getImageUrl())) {
-                Uri mediaUri = Uri.parse(step.getImageUrl());
-                if (mediaUri != null) {
-                    mImageView.setVisibility(View.VISIBLE);
-                    Picasso.with(getContext())
-                            .load(mediaUri)
-                            .into(mImageView);
+            if (mImageView != null) {
+                mImageView.setVisibility(View.GONE);
+                if (!TextUtils.isEmpty(step.getImageUrl())) {
+                    Uri mediaUri = Uri.parse(step.getImageUrl());
+                    if (mediaUri != null) {
+                        mImageView.setVisibility(View.VISIBLE);
+                        Picasso.with(getContext())
+                                .load(mediaUri)
+                                .into(mImageView);
+                    }
                 }
             }
 
